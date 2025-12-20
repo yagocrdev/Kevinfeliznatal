@@ -4,7 +4,12 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Cartão de Natal 🎄</title>
+
 <style>
+*{
+  box-sizing:border-box;
+}
+
 body{
   margin:0;
   min-height:100vh;
@@ -12,18 +17,24 @@ body{
   justify-content:center;
   align-items:center;
   background:linear-gradient(#0b1d3a,#000);
-  font-family: 'Segoe UI', sans-serif;
+  font-family:'Segoe UI', sans-serif;
   overflow:hidden;
   color:#fff;
+  padding:16px;
 }
 
 .card{
   text-align:center;
+  width:100%;
   max-width:420px;
   padding:20px;
   background:rgba(0,0,0,0.45);
   border-radius:20px;
   box-shadow:0 20px 40px rgba(0,0,0,.6);
+}
+
+.card h2{
+  font-size:1.3rem;
 }
 
 .card img{
@@ -32,6 +43,7 @@ body{
   border-radius:16px;
   cursor:pointer;
   transition:transform 1s;
+  transform-style:preserve-3d;
 }
 
 .card img.rotate{
@@ -41,7 +53,8 @@ body{
 .message{
   margin-top:20px;
   display:none;
-  line-height:1.4;
+  line-height:1.5;
+  font-size:1rem;
   animation:fadeIn 1.5s forwards;
 }
 
@@ -63,24 +76,15 @@ body{
 @keyframes fall{
   to{transform:translateY(110vh)}
 }
-
-.share{
-  margin-top:20px;
-  padding:10px 16px;
-  border:none;
-  border-radius:20px;
-  background:#e63946;
-  color:white;
-  font-size:16px;
-  cursor:pointer;
-}
 </style>
 </head>
+
 <body>
 
 <div class="card">
   <h2>🎅 Clique no Charizard 🎁</h2>
-  <img id="img" src="Charizard-noel.jpg" alt="Cartão de Natal" data-from="Yago">
+
+  <img id="img" src="Charizard-noel.jpg" alt="Cartão de Natal">
 
   <div class="message" id="msg">
     <p><strong>Ho ho ho, Papai Noel chegou!</strong></p>
@@ -88,7 +92,9 @@ body{
     <p>Obrigado por ser essa pessoa maravilhosa que és, obrigado por me acompanhar e até mesmo não deixar eu desistir ou cair nos meus dias mais sombrios.</p>
     <p>Enfim, agradeço você de coração por estar sempre ao meu lado e não és de hoje… te amo bochonha ❤️</p>
     <p><strong>Feliz Natal !!! 🎄✨</strong></p>
-  
+  </div>
+</div>
+
 <script>
 const img = document.getElementById('img');
 const msg = document.getElementById('msg');
@@ -96,7 +102,10 @@ const msg = document.getElementById('msg');
 img.addEventListener('click',()=>{
   img.classList.add('rotate');
   msg.style.display='block';
-  setTimeout(()=>img.classList.remove('rotate'),1000);
+
+  setTimeout(()=>{
+    img.classList.remove('rotate');
+  },1000);
 });
 
 /* neve */
