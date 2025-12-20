@@ -6,64 +6,84 @@
 <title>Cartão de Natal 🎄</title>
 
 <style>
+/* Reset básico */
 *{
   box-sizing:border-box;
+  margin:0;
+  padding:0;
 }
 
 body{
-  margin:0;
   min-height:100vh;
   display:flex;
   justify-content:center;
   align-items:center;
   background:linear-gradient(#0b1d3a,#000);
   font-family:'Segoe UI', sans-serif;
-  overflow:hidden;
   color:#fff;
   padding:16px;
+  overflow:hidden;
 }
 
+/* Cartão */
 .card{
-  text-align:center;
   width:100%;
   max-width:420px;
-  padding:20px;
-  background:rgba(0,0,0,0.45);
+  background:rgba(0,0,0,0.5);
   border-radius:20px;
-  box-shadow:0 20px 40px rgba(0,0,0,.6);
+  padding:18px;
+  text-align:center;
+  box-shadow:0 20px 40px rgba(0,0,0,0.6);
 }
 
+/* Título */
 .card h2{
-  font-size:1.3rem;
+  font-size:clamp(1.1rem, 4.5vw, 1.4rem);
+  margin-bottom:16px;
 }
 
+/* Imagem */
 .card img{
   width:100%;
-  max-width:320px;
+  max-width:300px;
   border-radius:16px;
   cursor:pointer;
   transition:transform 1s;
   transform-style:preserve-3d;
 }
 
+/* Animação */
 .card img.rotate{
   transform:rotateY(360deg);
 }
 
+/* Mensagem */
 .message{
-  margin-top:20px;
   display:none;
-  line-height:1.5;
-  font-size:1rem;
-  animation:fadeIn 1.5s forwards;
+  margin-top:20px;
+  text-align:left;
+  font-size:clamp(0.95rem, 3.8vw, 1.05rem);
+  line-height:1.8;
+  animation:fadeIn 1.2s forwards;
 }
 
+.message p{
+  margin-bottom:14px;
+}
+
+/* Animação de entrada */
 @keyframes fadeIn{
-  from{opacity:0; transform:translateY(20px)}
-  to{opacity:1; transform:translateY(0)}
+  from{
+    opacity:0;
+    transform:translateY(16px);
+  }
+  to{
+    opacity:1;
+    transform:translateY(0);
+  }
 }
 
-/* neve */
+/* Neve */
 .snowflake{
   position:fixed;
   top:-10px;
@@ -74,7 +94,17 @@ body{
 }
 
 @keyframes fall{
-  to{transform:translateY(110vh)}
+  to{
+    transform:translateY(110vh);
+  }
+}
+
+/* Ajustes extras para telas MUITO pequenas */
+@media (max-width: 360px){
+  .message{
+    font-size:1rem;
+    line-height:1.9;
+  }
 }
 </style>
 </head>
@@ -85,11 +115,21 @@ body{
   <h2>🎅 Clique no Charizard 🎁</h2>
 
   <img id="img" src="Charizard-noel.jpg" alt="Cartão de Natal">
-<div class="message" id="msg">
+
+  <div class="message" id="msg">
     <p><strong>Ho ho ho, Papai Noel chegou!</strong></p>
-    <p>Feliz natal meu primo para você, para o pessoal aew e sua família, tudo bom hoje e sempre um próspero ano novo repleto de saúde, paz, dinheiro no bolso e na carteira haha.Obrigado por ser essa pessoa maravilhosa que és, 
-    obrigado por me acompanhar e até mesmo não deixar eu desistir ou cair nos meus dias mais sombrios.</p>
-    <p>Enfim, agradeço você de coração por estar sempre ao meu lado e não és de hoje… te amo bochonha ❤️</p>
+  <p>
+      Feliz natal meu primo para você, para o pessoal aew e sua família,
+      tudo bom hoje e sempre um próspero ano novo repleto de saúde, paz,
+      dinheiro no bolso e na carteira haha. Obrigado por ser essa pessoa maravilhosa que és, obrigado por me
+      acompanhar e até mesmo não deixar eu desistir ou cair nos meus dias
+      mais sombrios.
+    </p>
+<p>
+      Enfim, agradeço você de coração por estar sempre ao meu lado e não és
+      de hoje… te amo bochonha ❤️
+    </p>
+
     <p><strong>Feliz Natal !!! 🎄✨</strong></p>
   </div>
 </div>
@@ -98,24 +138,25 @@ body{
 const img = document.getElementById('img');
 const msg = document.getElementById('msg');
 
-img.addEventListener('click',()=>{
+/* Clique ou toque */
+img.addEventListener('click', () => {
   img.classList.add('rotate');
-  msg.style.display='block';
+  msg.style.display = 'block';
 
-  setTimeout(()=>{
+  setTimeout(() => {
     img.classList.remove('rotate');
-  },1000);
+  }, 1000);
 });
 
-/* neve */
-for(let i=0;i<40;i++){
-  const snow=document.createElement('div');
-  snow.innerHTML='❄';
-  snow.className='snowflake';
-  snow.style.left=Math.random()*100+'vw';
-  snow.style.fontSize=(Math.random()*10+10)+'px';
-  snow.style.animationDuration=(Math.random()*5+5)+'s';
-  snow.style.opacity=Math.random();
+/* Neve */
+for(let i = 0; i < 40; i++){
+  const snow = document.createElement('div');
+  snow.textContent = '❄';
+  snow.className = 'snowflake';
+  snow.style.left = Math.random() * 100 + 'vw';
+  snow.style.fontSize = (Math.random() * 10 + 10) + 'px';
+  snow.style.animationDuration = (Math.random() * 5 + 5) + 's';
+  snow.style.opacity = Math.random();
   document.body.appendChild(snow);
 }
 </script>
