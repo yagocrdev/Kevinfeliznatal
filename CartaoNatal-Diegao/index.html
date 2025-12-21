@@ -6,27 +6,34 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
+* {
+    box-sizing: border-box;
+}
+
 body {
     margin: 0;
-    height: 100vh;
+    min-height: 100vh;
     background: radial-gradient(circle at top, #0a2342, #020c1b);
     display: flex;
-    align-items: center;
     justify-content: center;
-    font-family: 'Arial', sans-serif;
-    overflow: hidden;
+    font-family: Arial, sans-serif;
     color: white;
+    overflow-x: hidden;
 }
 
+/* CONTAINER */
 .card {
+    width: 100%;
+    max-width: 600px;
+    padding: 20px;
     text-align: center;
     z-index: 2;
-    padding: 20px;
 }
 
+/* IMAGEM */
 .card img {
-    width: 280px;
-    max-width: 90%;
+    width: 100%;
+    max-width: 280px;
     cursor: pointer;
     transition: transform 1s ease;
 }
@@ -35,15 +42,19 @@ body {
     transform: rotate(360deg);
 }
 
+/* MENSAGEM */
 .message {
     margin-top: 20px;
-    max-width: 500px;
+    max-height: 55vh; /* altura máxima */
+    overflow-y: auto; /* ROLAGEM */
+    -webkit-overflow-scrolling: touch;
     opacity: 0;
     transform: translateY(20px);
     transition: all 1s ease;
-    background: rgba(0,0,0,0.5);
+    background: rgba(0,0,0,0.55);
     padding: 20px;
     border-radius: 15px;
+    text-align: left;
 }
 
 .message.show {
@@ -51,24 +62,19 @@ body {
     transform: translateY(0);
 }
 
+/* BARRA DE SCROLL BONITA */
+.message::-webkit-scrollbar {
+    width: 6px;
+}
+.message::-webkit-scrollbar-thumb {
+    background: #ffd700;
+    border-radius: 10px;
+}
+
+/* TÍTULO */
 h1 {
     color: #ffd700;
-    margin-bottom: 10px;
-}
-
-.share-btn {
-    margin-top: 20px;
-    padding: 12px 20px;
-    background: #25d366;
-    border: none;
-    color: white;
-    font-size: 16px;
-    border-radius: 30px;
-    cursor: pointer;
-}
-
-.share-btn:hover {
-    background: #1da851;
+    text-align: center;
 }
 
 /* NEVE */
@@ -76,7 +82,6 @@ h1 {
     position: fixed;
     top: -10px;
     color: white;
-    font-size: 1em;
     user-select: none;
     pointer-events: none;
     animation: fall linear infinite;
@@ -85,6 +90,14 @@ h1 {
 @keyframes fall {
     to {
         transform: translateY(110vh);
+    }
+}
+
+/* AJUSTES MOBILE */
+@media (max-width: 480px) {
+    .message {
+        max-height: 50vh;
+        font-size: 15px;
     }
 }
 </style>
@@ -98,19 +111,22 @@ h1 {
     <div class="message" id="message">
         <h1>🎅 Ho ho ho, Papai Noel chegou!</h1>
         <p>
-         Feliz natal Diegão, tudo de bom para você e para dona Rosa.  
+        Feliz natal Diegão, tudo de bom para você e para dona Rosa.  
         Que vocês tenham um Natal e um próspero Ano Novo repleto de coisas boas,
         muita saúde, paz e dinheiro no bolso.
+        <br><br>
         Obrigado também por estar comigo quando eu mais precisei, por me ajudar,
         seja me escutando, me dando conselhos, puxões de orelha, na faculdade
-        e até mesmo nos meus dias mais sombrios. Enfim, obrigado por se tornar meu irmão.  
-        A vida me concedeu um grande amigo quando eu menos esperava. Um forte abraço e com carinho de seu amigo que não vale o que come
+        e até mesmo nos meus dias mais sombrios.
+        <br><br>
+        Enfim, obrigado por se tornar meu irmão.  
+        A vida me concedeu um grande amigo quando eu menos esperava.
+        <br><br>
+        Um forte abraço e com carinho de seu amigo que não vale o que come
         como você fala haha!
         <br><br>
         <strong>🎄 Feliz Natal !!! 🎄</strong>
         </p>
-
-        <button class="share-btn" onclick="shareCard()">📲 Compartilhar cartão</button>
     </div>
 </div>
 
@@ -127,41 +143,22 @@ gengar.addEventListener("click", () => {
     }, 1000);
 });
 
-// NEVE
+// NEVE (otimizada)
 function createSnowflake() {
     const snowflake = document.createElement("div");
     snowflake.className = "snowflake";
     snowflake.innerHTML = "❄";
     snowflake.style.left = Math.random() * window.innerWidth + "px";
-    snowflake.style.animationDuration = (Math.random() * 3 + 2) + "s";
+    snowflake.style.animationDuration = (Math.random() * 3 + 4) + "s";
     snowflake.style.opacity = Math.random();
     snowflake.style.fontSize = (Math.random() * 10 + 10) + "px";
 
     document.body.appendChild(snowflake);
 
-    setTimeout(() => {
-        snowflake.remove();
-    }, 5000);
+    setTimeout(() => snowflake.remove(), 6000);
 }
 
-setInterval(createSnowflake, 200);
-
-// COMPARTILHAR
-function shareCard() {
-    const text = "🎄 Feliz Natal! Veja esse cartão especial 🎅";
-    const url = window.location.href;
-
-    if (navigator.share) {
-        navigator.share({
-            title: "Cartão de Natal",
-            text: text,
-            url: url
-        });
-    } else {
-        navigator.clipboard.writeText(url);
-        alert("Link copiado! Agora é só compartilhar 🎁");
-    }
-}
+setInterval(createSnowflake, 300);
 </script>
 
 </body>

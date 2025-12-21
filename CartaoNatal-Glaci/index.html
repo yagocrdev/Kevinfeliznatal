@@ -3,72 +3,104 @@
 <head>
 <meta charset="UTF-8">
 <title>Feliz Natal 🎄</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
-    body {
-        margin: 0;
-        height: 100vh;
-        background: linear-gradient(#0b1d33, #1e3c72);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        overflow: hidden;
-        font-family: 'Segoe UI', sans-serif;
-        color: white;
-        text-align: center;
-    }
+* {
+    box-sizing: border-box;
+}
 
-    .container {
-        position: relative;
-        z-index: 2;
-        max-width: 600px;
-        padding: 20px;
-    }
+body {
+    margin: 0;
+    min-height: 100vh;
+    background: linear-gradient(#0b1d33, #1e3c72);
+    display: flex;
+    justify-content: center;
+    font-family: 'Segoe UI', sans-serif;
+    color: white;
+    overflow-x: hidden;
+    text-align: center;
+}
 
-    img {
-        width: 100%;
-        max-width: 450px;
-        cursor: pointer;
-        transition: transform 1.2s ease;
-        border-radius: 20px;
-        box-shadow: 0 0 30px rgba(255,255,255,0.3);
-    }
+/* CONTAINER */
+.container {
+    width: 100%;
+    max-width: 600px;
+    padding: 20px;
+    position: relative;
+    z-index: 2;
+}
 
-    img.girar {
-        transform: rotate(360deg) scale(1.05);
-    }
+/* IMAGEM */
+img {
+    width: 100%;
+    max-width: 450px;
+    cursor: pointer;
+    transition: transform 1.2s ease;
+    border-radius: 20px;
+    box-shadow: 0 0 30px rgba(255,255,255,0.3);
+}
 
+img.girar {
+    transform: rotate(360deg) scale(1.05);
+}
+
+/* MENSAGEM COM SCROLL */
+.mensagem {
+    margin-top: 20px;
+    max-height: 45vh; /* CONTROLE DA ALTURA */
+    overflow-y: auto; /* SCROLL */
+    -webkit-overflow-scrolling: touch;
+    padding: 15px;
+    font-size: 1.05rem;
+    line-height: 1.6;
+    background: rgba(0, 0, 0, 0.35);
+    border-radius: 15px;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 1.5s ease, transform 1.5s ease;
+    white-space: pre-line;
+}
+
+/* SCROLL PERSONALIZADO */
+.mensagem::-webkit-scrollbar {
+    width: 6px;
+}
+
+.mensagem::-webkit-scrollbar-thumb {
+    background: rgba(255,255,255,0.6);
+    border-radius: 10px;
+}
+
+.mensagem.mostrar {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* NEVE */
+.snow {
+    position: fixed;
+    top: -10px;
+    color: white;
+    user-select: none;
+    pointer-events: none;
+    animation: cair linear infinite;
+    z-index: 1;
+}
+
+@keyframes cair {
+    to {
+        transform: translateY(110vh);
+    }
+}
+
+/* AJUSTES MOBILE */
+@media (max-width: 480px) {
     .mensagem {
-        margin-top: 20px;
-        font-size: 1.1rem;
-        line-height: 1.6;
-        opacity: 0;
-        transform: translateY(20px);
-        transition: opacity 1.5s ease, transform 1.5s ease;
-        white-space: pre-line;
+        max-height: 40vh;
+        font-size: 0.95rem;
     }
-
-    .mensagem.mostrar {
-        opacity: 1;
-        transform: translateY(0);
-    }
-
-    /* NEVE */
-    .snow {
-        position: fixed;
-        top: -10px;
-        color: white;
-        user-select: none;
-        pointer-events: none;
-        animation: cair linear infinite;
-        z-index: 1;
-    }
-
-    @keyframes cair {
-        to {
-            transform: translateY(110vh);
-        }
-    }
+}
 </style>
 </head>
 
@@ -81,37 +113,38 @@
 Ho ho ho, Papai Noel chegou!
 
 Feliz natal Glaci, tudo de bom hoje e sempre. Obrigado por cuidar de mim e estar sempre ao lado de seu neto, até nos dias mais sombrios.
- Obrigado por dar forças para ele, mesmo sem a senhora saber, e incentivar ele a não cair e desistir de seus sonhos e até mesmo de viver.
+
+Obrigado por dar forças para ele, mesmo sem a senhora saber, e incentivar ele a não cair e desistir de seus sonhos e até mesmo de viver.
+
 Feliz natal Glaci !!!
     </div>
 </div>
 
 <script>
-    const imagem = document.getElementById("imagem");
-    const mensagem = document.getElementById("mensagem");
+const imagem = document.getElementById("imagem");
+const mensagem = document.getElementById("mensagem");
 
-    imagem.addEventListener("click", () => {
-        imagem.classList.toggle("girar");
-        mensagem.classList.add("mostrar");
-    });
+imagem.addEventListener("click", () => {
+    imagem.classList.toggle("girar");
+    mensagem.classList.add("mostrar");
+});
 
-    // Criar neve
-    function criarNeve() {
-        const floco = document.createElement("div");
-        floco.className = "snow";
-        floco.innerHTML = "❄";
-        floco.style.left = Math.random() * window.innerWidth + "px";
-        floco.style.fontSize = (Math.random() * 10 + 10) + "px";
-        floco.style.animationDuration = (Math.random() * 5 + 5) + "s";
-        floco.style.opacity = Math.random();
-        document.body.appendChild(floco);
+// NEVE OTIMIZADA
+function criarNeve() {
+    const floco = document.createElement("div");
+    floco.className = "snow";
+    floco.innerHTML = "❄";
+    floco.style.left = Math.random() * window.innerWidth + "px";
+    floco.style.fontSize = (Math.random() * 10 + 10) + "px";
+    floco.style.animationDuration = (Math.random() * 4 + 6) + "s";
+    floco.style.opacity = Math.random();
 
-        setTimeout(() => {
-            floco.remove();
-        }, 10000);
-    }
+    document.body.appendChild(floco);
 
-    setInterval(criarNeve, 200);
+    setTimeout(() => floco.remove(), 9000);
+}
+
+setInterval(criarNeve, 300);
 </script>
 
 </body>

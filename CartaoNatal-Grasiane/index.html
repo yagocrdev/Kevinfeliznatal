@@ -3,8 +3,13 @@
 <head>
 <meta charset="UTF-8">
 <title>Cartão de Natal 🎄</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
+* {
+    box-sizing: border-box;
+}
+
 body {
     margin: 0;
     font-family: "Georgia", serif;
@@ -13,21 +18,24 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
+    min-height: 100vh;
 }
 
-/* CONTÊINER DO CARTÃO */
+/* CONTÊINER */
 .card-container {
     perspective: 1200px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
 }
 
 /* CARTÃO */
 .card {
-    width: 360px;
-    height: 520px;
+    width: min(90vw, 360px);
+    height: min(85vh, 520px);
     position: relative;
     transform-style: preserve-3d;
-    transition: transform 1.2s;
+    transition: transform 1.2s ease;
     cursor: pointer;
 }
 
@@ -39,8 +47,7 @@ body {
 /* FACES */
 .card-face {
     position: absolute;
-    width: 100%;
-    height: 100%;
+    inset: 0;
     backface-visibility: hidden;
     border-radius: 18px;
     box-shadow: 0 15px 40px rgba(0,0,0,0.4);
@@ -58,20 +65,36 @@ body {
 .card-back {
     background: #f9f5ef;
     transform: rotateX(180deg);
-    padding: 20px;
+    padding: 18px;
     overflow-y: auto;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
 }
 
+/* TÍTULO */
 .card-back h2 {
     text-align: center;
     color: #b22222;
+    font-size: clamp(1.2rem, 2.5vw, 1.5rem);
+    margin-top: 0;
 }
 
+/* TEXTO RESPONSIVO */
 .card-back p {
-    font-size: 14px;
-    line-height: 1.5;
+    font-size: clamp(0.85rem, 2.2vw, 0.95rem);
+    line-height: 1.6;
     text-align: justify;
     color: #333;
+}
+
+/* SCROLL PERSONALIZADO */
+.card-back::-webkit-scrollbar {
+    width: 6px;
+}
+
+.card-back::-webkit-scrollbar-thumb {
+    background: #b22222;
+    border-radius: 10px;
 }
 
 /* NEVE */
@@ -79,15 +102,26 @@ body {
     position: fixed;
     top: -10px;
     color: white;
-    font-size: 1em;
     user-select: none;
     pointer-events: none;
     animation: fall linear infinite;
+    z-index: 0;
 }
 
 @keyframes fall {
     to {
         transform: translateY(110vh);
+    }
+}
+
+/* AJUSTES MOBILE */
+@media (max-width: 480px) {
+    .card {
+        height: 80vh;
+    }
+
+    .card-back {
+        padding: 15px;
     }
 }
 </style>
@@ -112,15 +146,19 @@ Aqui é o Noel, o bom e velho velhinho ho ho ho, venho aqui deixar uma mensagem 
 Vamos lá, palavras de Yago:
 <br><br>
 Feliz Natal tia, tio e primos! Que neste Natal vocês tenham muita alegria, saúde, paz, presentes haha — bom, chega de enrolar.
-
- Obrigado por vocês estarem sempre comigo, me apoiando e me ajudando, seja na vida ou nos perrengues da casa haha.
+<br><br>
+Obrigado por vocês estarem sempre comigo, me apoiando e me ajudando, seja na vida ou nos perrengues da casa haha.
 Agradeço todos os dias por termos criado vínculos de novo, não da forma que gostaríamos, mas às vezes acho que foi necessário.
- Neste Natal, este é meu presente: um cartão, porém além de virtual, feito por mim com dedicação e carinho. Afinal, isso que estou fazendo é com base nos meus estudos e no incentivo de vocês também, por não deixarem eu desistir quando tudo desmoronou.
+<br><br>
+Neste Natal, este é meu presente: um cartão, porém além de virtual, feito por mim com dedicação e carinho.
+Afinal, isso que estou fazendo é com base nos meus estudos e no incentivo de vocês também, por não deixarem eu desistir quando tudo desmoronou.
+<br><br>
 Como sempre digo, a intenção é o que vale. Não tenho muitas palavras e nem sei muito bem o que dizer, mas saibam que estou sempre aqui com vocês e por vocês.
-Amo vocês. Obrigado por serem um porto seguro para mim em meio a tanto caos e sombras. Continuem sendo essa família maravilhosa que vocês são.
-
+<br><br>
+Amo vocês. Obrigado por serem um porto seguro para mim em meio a tanto caos e sombras.
+Continuem sendo essa família maravilhosa que vocês são.
+<br><br>
 Esta foi a mensagem e o recado que Yago deixou para Grasiane e família, com muito carinho e de coração.
-Agora estou indo embora, afinal tenho mais casas para deixar presentes!
 <br><br>
 <b>Ho Ho Ho! Feliz Natal!! 🎄🎁</b>
             </p>
@@ -136,22 +174,20 @@ card.addEventListener("click", () => {
     card.classList.toggle("flipped");
 });
 
-// NEVE
+// NEVE OTIMIZADA
 function createSnowflake() {
     const snowflake = document.createElement("div");
     snowflake.classList.add("snowflake");
     snowflake.innerHTML = "❄";
     snowflake.style.left = Math.random() * window.innerWidth + "px";
-    snowflake.style.animationDuration = (Math.random() * 3 + 2) + "s";
+    snowflake.style.animationDuration = (Math.random() * 4 + 4) + "s";
     snowflake.style.fontSize = (Math.random() * 10 + 10) + "px";
     document.body.appendChild(snowflake);
 
-    setTimeout(() => {
-        snowflake.remove();
-    }, 5000);
+    setTimeout(() => snowflake.remove(), 8000);
 }
 
-setInterval(createSnowflake, 150);
+setInterval(createSnowflake, 250);
 </script>
 
 </body>

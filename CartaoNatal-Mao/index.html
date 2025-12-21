@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cartão de Natal</title>
+
+<style>
+    body {
+        margin: 0;
+        min-height: 100vh;
+        background: linear-gradient(#0b1d3a, #000);
+        color: white;
+        font-family: Arial, Helvetica, sans-serif;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        overflow: hidden;
+        text-align: center;
+    }
+
+    .container {
+        z-index: 2;
+        padding: 20px;
+        max-width: 800px;
+    }
+
+    img {
+        width: 220px;
+        max-width: 70vw;
+        cursor: pointer;
+        transition: transform 1s;
+    }
+
+    img.girar {
+        transform: rotateY(360deg);
+    }
+
+    .mensagem {
+        margin-top: 20px;
+        display: none;
+        font-size: clamp(16px, 4vw, 22px);
+        line-height: 1.6;
+    }
+
+    /* NEVE */
+    .neve {
+        position: fixed;
+        top: -10px;
+        color: white;
+        user-select: none;
+        pointer-events: none;
+        animation: cair linear infinite;
+    }
+
+    @keyframes cair {
+        from {
+            transform: translateY(0);
+        }
+        to {
+            transform: translateY(110vh);
+        }
+    }
+</style>
+</head>
+<body>
+
+<div class="container">
+    <img src="Mão.jpeg" alt="Cartão de Natal" id="imagem">
+
+    <div class="mensagem" id="mensagem">
+        🎄 Feliz natal mão a você e a vana tudo de bom hoje e sempre para vocês meu primo,  
+        que tu encontre uma gótica rabuda e que tu tenhas um próspero ano novo repleto de  
+        conquistas, dinheiro, saúde, paz e alegria.  
+        <br><br>
+        Através deste cartão feito com carinho e dedicação deixo esta breve mensagem.  
+        Lembre-se: conta comigo! Obrigado por sempre me apoiar e me ajudar.  
+        Tamo junto corno forte abraço!!! ❄️
+    </div>
+</div>
+
+<script>
+    const imagem = document.getElementById("imagem");
+    const mensagem = document.getElementById("mensagem");
+
+    imagem.addEventListener("click", () => {
+        imagem.classList.toggle("girar");
+        mensagem.style.display = "block";
+    });
+
+    // CRIAR NEVE
+    function criarNeve() {
+        const neve = document.createElement("div");
+        neve.classList.add("neve");
+        neve.innerHTML = "❄";
+        neve.style.left = Math.random() * 100 + "vw";
+        neve.style.fontSize = Math.random() * 20 + 10 + "px";
+        neve.style.animationDuration = Math.random() * 5 + 5 + "s";
+
+        document.body.appendChild(neve);
+
+        setTimeout(() => {
+            neve.remove();
+        }, 10000);
+    }
+
+    setInterval(criarNeve, 200);
+</script>
+
+</body>
+</html>

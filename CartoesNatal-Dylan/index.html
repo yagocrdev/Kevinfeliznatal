@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Cartão de Natal 🎄</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Segoe UI", sans-serif;
+}
+
+body {
+    min-height: 100vh;
+    background: linear-gradient(180deg, #0b1d2a, #102f44);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    color: #fff;
+}
+
+/* Container principal */
+.card-container {
+    position: relative;
+    width: 90%;
+    max-width: 420px;
+}
+
+/* Imagem */
+.image-wrapper {
+    cursor: pointer;
+    transition: transform 1s ease;
+}
+
+.image-wrapper.rotate {
+    transform: rotateY(180deg);
+}
+
+.image-wrapper img {
+    width: 100%;
+    border-radius: 14px;
+    box-shadow: 0 15px 30px rgba(0,0,0,0.6);
+}
+
+/* Mensagem */
+.message-box {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.88);
+    backdrop-filter: blur(6px);
+    border-radius: 14px;
+    padding: 20px;
+    overflow-y: auto;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.6s ease;
+}
+
+.message-box.show {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.message-box h2 {
+    text-align: center;
+    margin-bottom: 12px;
+    color: #ffd700;
+}
+
+.message-box p {
+    line-height: 1.6;
+    font-size: 0.95rem;
+    text-align: justify;
+}
+
+/* Scroll bonito */
+.message-box::-webkit-scrollbar {
+    width: 6px;
+}
+
+.message-box::-webkit-scrollbar-thumb {
+    background: #ffd700;
+    border-radius: 10px;
+}
+
+/* Neve */
+.snowflake {
+    position: fixed;
+    top: -10px;
+    color: white;
+    font-size: 1em;
+    user-select: none;
+    animation: fall linear infinite;
+}
+
+@keyframes fall {
+    to {
+        transform: translateY(110vh);
+    }
+}
+
+/* Responsivo */
+@media (min-width: 768px) {
+    .message-box p {
+        font-size: 1.05rem;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="card-container">
+    <div class="image-wrapper" id="card">
+        <img src="Dylan.jpeg" alt="Cartão de Natal">
+    </div>
+
+    <div class="message-box" id="message">
+        <h2>🎄 Feliz Natal 🎄</h2>
+        <p>
+        Feliz natal meu amigo tudo de bom hoje e sempre muita alegria, paz e presentes haha,
+        tenhas um ótimo e próspero ano novo também que tu consiga e alcance suas conquistas e
+        objetivos que você continue sendo esse cara formidável e incrível que você é tenha
+        um ano com muito dinheiro no bolso, carteira, saúde e juízo.
+
+        <br><br>
+        Venho através deste cartão de natal feito com carinho e dedicação te agradecer por
+        todo suporte que tu sempre me deu seja agora nestes tempos de caos e que eu ando
+        perdido ou em outras situações afinal n é de agora, obrigado por ser mais que um
+        amigo ser meu irmão, obrigado por sempre torcer por mim e n deixar eu baixar a cabeça
+        e desistir te amo e lembre-se conte comigo sempre um forte abraço por trás de seu amigo!!!
+        </p>
+    </div>
+</div>
+
+<script>
+const card = document.getElementById("card");
+const message = document.getElementById("message");
+
+card.addEventListener("click", () => {
+    card.classList.toggle("rotate");
+    message.classList.toggle("show");
+});
+
+/* Neve */
+function createSnowflake() {
+    const snowflake = document.createElement("div");
+    snowflake.classList.add("snowflake");
+    snowflake.textContent = "❄";
+    snowflake.style.left = Math.random() * 100 + "vw";
+    snowflake.style.animationDuration = 3 + Math.random() * 5 + "s";
+    snowflake.style.opacity = Math.random();
+    snowflake.style.fontSize = Math.random() * 10 + 10 + "px";
+
+    document.body.appendChild(snowflake);
+
+    setTimeout(() => {
+        snowflake.remove();
+    }, 8000);
+}
+
+setInterval(createSnowflake, 200);
+</script>
+
+</body>
+</html>
