@@ -13,21 +13,22 @@
 
 body {
   margin: 0;
-  min-height: 100vh;
+  min-height: 100dvh;
   background: linear-gradient(#0b1d33, #000);
   display: flex;
   align-items: center;
   justify-content: center;
   overflow: hidden;
+  padding: 15px;
 }
 
 /* ================= CARD ================= */
 
 .scene {
   perspective: 1200px;
-  width: 90%;
-  max-width: 350px;
-  height: 500px;
+  width: 100%;
+  max-width: 360px;
+  aspect-ratio: 3 / 4.5;
 }
 
 .card {
@@ -37,6 +38,7 @@ body {
   transform-style: preserve-3d;
   transition: transform 1s ease;
   cursor: pointer;
+  touch-action: manipulation;
 }
 
 .card.flipped {
@@ -62,10 +64,10 @@ body {
 
 /* Verso */
 .back {
-  background: rgba(0,0,0,0.85);
+  background: rgba(0,0,0,0.88);
   color: #fff;
   transform: rotateY(180deg);
-  padding: 20px;
+  padding: 18px;
   display: flex;
   flex-direction: column;
 }
@@ -74,13 +76,14 @@ body {
   text-align: center;
   color: #ffd700;
   margin-bottom: 10px;
+  font-size: 1.3rem;
 }
 
 .message {
   overflow-y: auto;
   font-size: 0.95rem;
-  line-height: 1.5;
-  padding-right: 10px;
+  line-height: 1.55;
+  padding-right: 6px;
 }
 
 /* Scroll bonito */
@@ -109,13 +112,19 @@ body {
   }
 }
 
-/* Responsivo */
+/* ================= MOBILE ================= */
+
 @media (max-width: 480px) {
   .scene {
-    height: 460px;
+    max-width: 320px;
   }
+
   .message {
     font-size: 0.9rem;
+  }
+
+  .back h2 {
+    font-size: 1.2rem;
   }
 }
 </style>
@@ -171,6 +180,10 @@ function flipCard() {
 }
 
 /* ================= NEVE ================= */
+
+const isMobile = window.innerWidth < 600;
+const snowInterval = isMobile ? 350 : 200;
+
 function createSnow() {
   const snow = document.createElement('div');
   snow.className = 'snow';
@@ -180,12 +193,10 @@ function createSnow() {
   snow.style.animationDuration = (Math.random() * 5 + 5) + 's';
   document.body.appendChild(snow);
 
-  setTimeout(() => {
-    snow.remove();
-  }, 10000);
+  setTimeout(() => snow.remove(), 10000);
 }
 
-setInterval(createSnow, 200);
+setInterval(createSnow, snowInterval);
 </script>
 
 </body>
