@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Cartão de Natal</title>
+
+<style>
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: "Segoe UI", sans-serif;
+}
+
+body {
+  min-height: 100vh;
+  background: linear-gradient(#0b1d33, #000814);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+/* ❄️ NEVE */
+.snow {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  background-image: 
+    radial-gradient(white 1px, transparent 1px),
+    radial-gradient(white 1.5px, transparent 1.5px);
+  background-size: 20px 20px, 40px 40px;
+  animation: snow 15s linear infinite;
+}
+
+@keyframes snow {
+  0% { background-position: 0 0, 0 0; }
+  100% { background-position: 0 100vh, 0 200vh; }
+}
+
+/* 📦 CARTÃO */
+.card-container {
+  perspective: 1200px;
+  width: 90%;
+  max-width: 420px;
+}
+
+.card {
+  width: 100%;
+  height: 550px;
+  position: relative;
+  transform-style: preserve-3d;
+  transition: transform 1s;
+  cursor: pointer;
+}
+
+.card.flip {
+  transform: rotateY(180deg);
+}
+
+.face {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+}
+
+/* 🐉 FRENTE */
+.front img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* ✉️ VERSO */
+.back {
+  background: rgba(255,255,255,0.95);
+  transform: rotateY(180deg);
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.back h2 {
+  text-align: center;
+  margin-bottom: 10px;
+  color: #b30000;
+}
+
+.message {
+  overflow-y: auto;
+  padding-right: 10px;
+  color: #222;
+  font-size: 15px;
+  line-height: 1.5;
+}
+
+/* 📱 MOBILE */
+@media (max-width: 600px) {
+  .card {
+    height: 480px;
+  }
+
+  .message {
+    font-size: 14px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<div class="snow"></div>
+
+<div class="card-container">
+  <div class="card" id="card">
+    
+    <!-- FRENTE -->
+    <div class="face front">
+      <img src="Breno.jpg" alt="Cartão de Natal">
+    </div>
+
+    <!-- VERSO -->
+    <div class="face back">
+      <h2>🎄 Feliz Natal, Primo! 🎄</h2>
+
+      <div class="message">
+        Feliz natal primo para você e sua família, que neste natal vocês tenham muitos momentos especiais, alegria, saúde, presentes haha.
+
+        <br><br>
+        Através deste cartão feito com carinho e dedicação venho deixar esta mensagem e agradecer por tu ser esse irmão que a vida me deu.
+
+        <br><br>
+        Obrigado por nos meus dias sombrios você me dar uma luz e forças para erguer a cabeça e ir para cima de novo, até mesmo não deixar eu desistir, seja da vida ou em momentos específicos como facu e trabalho.
+
+        <br><br>
+        Obrigado por ser um ponto seguro e ser esta pessoa maravilhosa que tu é — seja como primo, amigo, paizão haha.
+
+        <br><br>
+        Tenhas um próspero ano novo cheio de saúde, dinheiro, que tu alcance suas metas e objetivos pessoais e que cada vez mais tu trace e conquiste aquilo que você almeja.
+
+        <br><br>
+        Afinal, você é um cara gente boa, de bom coração e merecedor de bons frutos.
+
+        <br><br>
+        Forte abraço de seu primo! ❤️
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+const card = document.getElementById("card");
+
+card.addEventListener("click", () => {
+  card.classList.toggle("flip");
+});
+</script>
+
+</body>
+</html>

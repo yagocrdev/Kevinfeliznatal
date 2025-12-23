@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cartão de Natal 🎄</title>
+
+<style>
+* {
+  box-sizing: border-box;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: linear-gradient(#0b1d33, #000);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+/* ================= CARD ================= */
+
+.scene {
+  perspective: 1200px;
+  width: 90%;
+  max-width: 350px;
+  height: 500px;
+}
+
+.card {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  transform-style: preserve-3d;
+  transition: transform 1s ease;
+  cursor: pointer;
+}
+
+.card.flipped {
+  transform: rotateY(180deg);
+}
+
+.face {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+}
+
+/* Frente */
+.front img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Verso */
+.back {
+  background: rgba(0,0,0,0.85);
+  color: #fff;
+  transform: rotateY(180deg);
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.back h2 {
+  text-align: center;
+  color: #ffd700;
+  margin-bottom: 10px;
+}
+
+.message {
+  overflow-y: auto;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  padding-right: 10px;
+}
+
+/* Scroll bonito */
+.message::-webkit-scrollbar {
+  width: 6px;
+}
+.message::-webkit-scrollbar-thumb {
+  background: #ffd700;
+  border-radius: 10px;
+}
+
+/* ================= NEVE ================= */
+
+.snow {
+  position: fixed;
+  top: -10px;
+  color: white;
+  user-select: none;
+  pointer-events: none;
+  animation: fall linear infinite;
+}
+
+@keyframes fall {
+  to {
+    transform: translateY(110vh);
+  }
+}
+
+/* Responsivo */
+@media (max-width: 480px) {
+  .scene {
+    height: 460px;
+  }
+  .message {
+    font-size: 0.9rem;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<div class="scene">
+  <div class="card" onclick="flipCard()">
+    
+    <!-- Frente -->
+    <div class="face front">
+      <img src="Everton.jpg" alt="Cartão de Natal">
+    </div>
+
+    <!-- Verso -->
+    <div class="face back">
+      <h2>🎄 Feliz Natal 🎄</h2>
+      <div class="message">
+        Feliz natal chefinho, tudo de bom hoje e sempre meu amigo muita alegria,
+        felicidades, presentes, saúde neste natal a você e sua família.
+
+        <br><br>
+        Venho através deste cartão feito com carinho e dedicação agradecer pela vida
+        ter me dado um irmão como você, obrigado por nos meus dias mais sombrio e de
+        caos sempre me apoiar e estar ao meu lado seja puxando minhas orelha ou me
+        dando conselhos.
+
+        <br><br>
+        Obrigado por ser um porto seguro quando eu precisei continua sendo este cara
+        incrível e foda que tu é o qual sua alegria e sua energia contagia todos ao
+        seu arredor.
+
+        <br><br>
+        Tenhas um próspero ano novo repleto de conquistas, dinheiro, saúde e que você
+        continue cada vez mais alcançando seus objetivos e metas de vida.
+
+        <br><br>
+        Saiba que eu te admiro e fico honrado de participar contigo um pouco em sua
+        jornada.
+
+        <br><br>
+        Um forte abraço de seu careca favorito haha.
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+function flipCard() {
+  document.querySelector('.card').classList.toggle('flipped');
+}
+
+/* ================= NEVE ================= */
+function createSnow() {
+  const snow = document.createElement('div');
+  snow.className = 'snow';
+  snow.innerHTML = '❄';
+  snow.style.left = Math.random() * 100 + 'vw';
+  snow.style.fontSize = (Math.random() * 10 + 10) + 'px';
+  snow.style.animationDuration = (Math.random() * 5 + 5) + 's';
+  document.body.appendChild(snow);
+
+  setTimeout(() => {
+    snow.remove();
+  }, 10000);
+}
+
+setInterval(createSnow, 200);
+</script>
+
+</body>
+</html>

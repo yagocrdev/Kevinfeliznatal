@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cartão de Natal 🎄</title>
+
+<style>
+/* RESET */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+body {
+  background: radial-gradient(circle at top, #0b1d2a, #02040a);
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+/* CONTAINER 3D */
+.card-container {
+  perspective: 1200px;
+}
+
+/* CARD */
+.card {
+  width: min(90vw, 420px);
+  height: 620px;
+  position: relative;
+  transform-style: preserve-3d;
+  transition: transform 1s ease;
+  cursor: pointer;
+}
+
+.card.flipped {
+  transform: rotateX(-180deg);
+}
+
+/* FACES */
+.card-face {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 30px 60px rgba(0,0,0,0.7);
+}
+
+/* FRENTE */
+.card-front img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* TEXTO "CLIQUE" */
+.hint {
+  position: absolute;
+  bottom: 15px;
+  width: 100%;
+  text-align: center;
+  color: #fff;
+  font-size: 0.9rem;
+  opacity: 0.85;
+  text-shadow: 0 0 10px #000;
+}
+
+/* VERSO */
+.card-back {
+  transform: rotateX(180deg);
+  background: linear-gradient(180deg, #8b0000, #3a0000);
+  color: #fff;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+/* TÍTULO */
+.card-back h1 {
+  text-align: center;
+  margin-bottom: 10px;
+  font-size: clamp(1.4rem, 4vw, 2rem);
+}
+
+/* TEXTO COM SCROLL */
+.message {
+  flex: 1;
+  overflow-y: auto;
+  padding-right: 10px;
+  font-size: clamp(0.95rem, 3.5vw, 1.1rem);
+  line-height: 1.6;
+}
+
+/* SCROLL CUSTOM */
+.message::-webkit-scrollbar {
+  width: 6px;
+}
+.message::-webkit-scrollbar-thumb {
+  background: rgba(255,255,255,0.4);
+  border-radius: 10px;
+}
+
+/* ASSINATURA */
+.signature {
+  margin-top: 15px;
+  text-align: right;
+  font-style: italic;
+  opacity: 0.9;
+}
+
+/* NEVE */
+.snowflake {
+  position: fixed;
+  top: -10px;
+  color: #fff;
+  user-select: none;
+  pointer-events: none;
+  animation: fall linear infinite;
+}
+
+@keyframes fall {
+  to {
+    transform: translateY(110vh);
+  }
+}
+</style>
+</head>
+
+<body>
+
+<div class="card-container">
+  <div class="card" id="card">
+    
+    <!-- FRENTE -->
+    <div class="card-face card-front">
+      <img src="Pet.jpg" alt="Cartão de Natal">
+      <div class="hint">Clique para abrir 🎁</div>
+    </div>
+
+    <!-- VERSO -->
+    <div class="card-face card-back">
+      <h1>🎄 Feliz Natal, Pet!</h1>
+
+      <div class="message">
+        Feliz natal Pet para ti para sua família, muita alegria, paz, saúde nesse fim de ano.
+        Continua sendo esse cara foda que tu é e que tu tenhas um próspero ano novo repleto
+        de conquistas e que você alcance seus objetivos e suas ambições.
+        <br><br>
+        Através deste cartão feito com carinho e dedicação quero agradecer por tu ser esse
+        baita irmão que a vida me deu. Obrigado também por não deixar eu desistir ou baixar
+        a cabeça, seja quando a vida tentou ou os vermes haha.
+        <br><br>
+        Forte abraço de seu amigo, boas festas!!
+      </div>
+
+      <div class="signature">
+        ❄️ Com carinho
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+/* FLIP */
+const card = document.getElementById('card');
+card.addEventListener('click', () => {
+  card.classList.toggle('flipped');
+});
+
+/* NEVE */
+function createSnowflake() {
+  const snowflake = document.createElement('div');
+  snowflake.classList.add('snowflake');
+  snowflake.innerHTML = '❄';
+  snowflake.style.left = Math.random() * 100 + 'vw';
+  snowflake.style.fontSize = Math.random() * 10 + 10 + 'px';
+  snowflake.style.animationDuration = Math.random() * 5 + 5 + 's';
+  snowflake.style.opacity = Math.random();
+
+  document.body.appendChild(snowflake);
+
+  setTimeout(() => {
+    snowflake.remove();
+  }, 10000);
+}
+
+setInterval(createSnowflake, 200);
+</script>
+
+</body>
+</html>
